@@ -130,6 +130,81 @@ header .user {
   width: 100%;
 }
 
+.menu {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+}
+.menu_item p + img {
+  display: none;
+}
+.menu_item.noglut p + img{
+  display: inline;
+}
+.menu_content {
+  background-color: #fff;
+  padding: 15px;
+  margin: 30px 0;
+}
+
+.order {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-gap: 20px;
+  margin: 30px 0;
+  background-color: #fff;
+  padding: 15px;
+}
+.order_item {
+  display: flex;  align-items: center;
+}
+.order_item-left {
+  margin-right: 10px;
+}
+.order_item-left-top {
+  text-align: left;
+}
+.order_item-left-top h2 {
+  font-size: 20px;
+}
+.order_item-left-top p {
+  font-size: 16px;
+}
+.order_item-left {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100%;
+}
+.order_item-left .price {
+  text-align-last: left;
+}
+
+.modal {
+  display: none;
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0,0,0,0.5);
+  top: 0;
+  left: 0;
+  z-index: 10;
+}
+.modal.opened {
+  display: block;
+}
+.modal_inner {
+  background-color: #fff;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  padding: 10px;
+  border-radius: 10px;
+}
+.order_item {
+  cursor: pointer;
+}
+
 footer {
   padding: 50px 0;
 }
