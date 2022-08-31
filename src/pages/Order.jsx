@@ -1,22 +1,25 @@
 import React, {useState} from 'react'
 import keksMenu from '../assets/images/menuKeks.webp'
 import Modal from '../components/Modal/Modal'
+import Cart from '../components/Cart/Cart'
+import CartSideBar from '../components/Cart/CartSideBar'
 
 function Order() {
   const [opened, setOpened] = useState(false)
   const [contentOrderItem, setContentOrderItem] = useState({})
+  const [buttunWatchCart, setButtunWatchCart] = useState(false)
+  const [cartSideBar, setCartSideBar] = useState(false)
+  const [addedCart, setAddedCart] = useState([])
 
-  const handleClick = e => {
+  const handleClick = keks => {
     setOpened(true)
-    
-    const orderItem = e.target.closest('.order_item')
 
     setContentOrderItem({
-      id: orderItem.id,
-      img: orderItem.querySelector('img').src,
-      title: orderItem.querySelector('h2').innerText,
-      description: orderItem.querySelector('.order_item-left-top p').innerText,
-      price: orderItem.querySelector('.price').innerText,
+      id: keks.id,
+      img: keks.img,
+      title: keks.title,
+      description: keks.description,
+      price: keks.price,
     })
 
     return contentOrderItem
@@ -35,21 +38,21 @@ function Order() {
       img: keksMenu,
       title: 'ШОКОЛАДНАЯ ВАНИЛЬ',
       description: 'Это пункт меню. Опишите то, что вы предлагаете',
-      price: '100 грн'
+      price: '120 грн'
     },
     {
       id: Math.floor(Math.random() * 10000),
       img: keksMenu,
       title: 'ДВОЙНОЙ ШОКОЛАД',
       description: 'Это пункт меню. Опишите то, что вы предлагаете',
-      price: '100 грн'
+      price: '90 грн'
     },
     {
       id: Math.floor(Math.random() * 10000),
       img: keksMenu,
       title: 'КРАСНЫЙ БАРХАТ (БЕЗ ГЛЮТЕНА)',
       description: 'Это пункт меню. Опишите то, что вы предлагаете',
-      price: '100 грн',
+      price: '67 грн',
       noGlut: true
     },
     {
@@ -57,26 +60,26 @@ function Order() {
       img: keksMenu,
       title: 'ШОКОЛАДНАЯ ВАНИЛЬ (БЕЗ САХАРА)',
       description: 'Это пункт меню. Опишите то, что вы предлагаете',
-      price: '100 грн'
+      price: '190 грн'
     },
     {
       id: Math.floor(Math.random() * 10000),
       img: keksMenu,
       title: 'ДВОЙНОЙ ШОКОЛАД (БЕЗ САХАРА)',
       description: 'Это пункт меню. Опишите то, что вы предлагаете',
-      price: '100 грн'
+      price: '164 грн'
     }
   ]
   
-  
-
-
   return (
     <div className='container'>
+
+      <Cart sideBar={setCartSideBar} buttunWatchCart={buttunWatchCart} addedCart={addedCart} />
+
       <div className="order">
 
       {menuKeks.map(keks => {
-        return <div className="order_item" id={keks.id} key={keks.id} onClick={e => handleClick(e)}>
+        return <div className="order_item" id={keks.id} key={keks.id} onClick={() => handleClick(keks)}>
         <div className="order_item-left">
           <div className="order_item-left-top">
             <h2>{keks.title}</h2>
@@ -91,7 +94,16 @@ function Order() {
       })}
       </div>
 
-      <Modal opened={opened} setOpened={setOpened} inner={contentOrderItem} />
+      {opened && <Modal 
+        opened={opened} 
+        setOpened={setOpened} 
+        inner={contentOrderItem} 
+        buttunWatchCart={setButtunWatchCart}
+        setAddedCart={setAddedCart}
+        addedCart={addedCart}
+      />}
+
+      {cartSideBar && <CartSideBar sideBar={setCartSideBar} addedCart={addedCart} />}
     </div>
   )
 }
